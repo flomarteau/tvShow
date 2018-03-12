@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 
-export default class HomeScreen extends React.Component {
+export default class MyShowsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Shows',
+    title: 'My Shows',
   };
 
   render() {
@@ -11,7 +11,7 @@ export default class HomeScreen extends React.Component {
       <ScrollView style={styles.container}>
 
         <Text>
-          Blabla homepage
+          Blabla mon espace perso
         </Text>
 
       </ScrollView>
