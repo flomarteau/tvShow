@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, SegmentedControlIOS } from 'react-native';
 
 export default class MyShowsScreen extends React.Component {
   static navigationOptions = {
@@ -10,9 +10,15 @@ export default class MyShowsScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
 
-        <Text>
-          Blabla mon espace perso
-        </Text>
+        <SegmentedControlIOS
+          style={styles.controller}
+          tintColor={'#fa983a'}
+          values={['Watching', 'Watchlist']}
+          selectedIndex={0}
+          onChange={(event) => {
+            this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+          }}
+        />
 
       </ScrollView>
     );
@@ -24,5 +30,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  controller: {
+    marginLeft: 30,
+    marginRight: 30
   },
 });
