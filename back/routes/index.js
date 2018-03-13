@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/movies', function(req, res, next) {
+router.get('/shows', function(req, res, next) {
   request(
     "https://api.themoviedb.org/3/discover/tv?api_key=57d6fa067a2b6c52e97ec557f764514f&language=en-US&sort_by=vote_average.desc&without_genres=false&include_null_first_air_dates=false",
     function(error, response, body) {

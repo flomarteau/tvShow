@@ -1,7 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { Card, Button } from 'react-native-elements'
+import { Card, Button, Header } from 'react-native-elements'
 
+import ViewMoreText from 'react-native-view-more-text';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -15,11 +16,28 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  renderViewMore(onPress){
+    return(
+      <Text onPress={onPress} style={{color:'#fa983a'}}>
+        Read more
+      </Text>
+    )
+  }
+
+  renderViewLess(onPress){
+    return(
+      <Text onPress={onPress} style={{color:'#fa983a'}}>
+        Read less
+      </Text>
+    )
+  }
+
+
   componentDidMount() {
     // var URL = 'http://127.0.0.1:3000/';
     var ctx = this;
     // fetch data from back route
-    fetch('http://127.0.0.1:3000/movies')
+    fetch('http://127.0.0.1:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -38,20 +56,29 @@ export default class HomeScreen extends React.Component {
   render() {
 
     var shows =[];
-    // var imgMovie = "http://image.tmdb.org/t/p/original/";
     for (var i=0; i<this.state.shows.length; i++) {
 
+
+
+    // var showImg = "http://image.tmdb.org/t/p/original" + {this.state.shows[i].poster_path}
     // shows.forEach(function(shows, i){
        shows.push(
          <Card
            key={i}
            title={this.state.shows[i].name}
            // image={require("http://image.tmdb.org/t/p/original/h1AaHftlM5Qp4qqHWJzFyDLtqxk.jpg")}
-           // image={require('../images/robot-pro.png')}
+           // image={require(showImg)}
+          >
+          <ViewMoreText
+            numberOfLines={3}
+            renderViewMore={this.renderViewMore}
+            renderViewLess={this.renderViewLess}
           >
            <Text style={{marginBottom: 10}}>
              {this.state.shows[i].overview}
            </Text>
+         </ViewMoreText>
+
          </Card>
        );
      }
