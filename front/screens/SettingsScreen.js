@@ -1,7 +1,8 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Login from '../components/Login';
 
-export default class SettingsScreen extends React.Component {
+class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Settings',
   };
@@ -9,11 +10,9 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-
-        <Text>
-          Blabla mes settings admin
-        </Text>
-
+        <View style ={{justifyContent: 'center', alignItems: 'center' }}>
+          <Login />
+        </View>
       </ScrollView>
     );
   }
@@ -26,3 +25,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default SettingsScreen;

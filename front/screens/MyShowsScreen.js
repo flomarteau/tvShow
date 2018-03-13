@@ -1,19 +1,18 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Login from '../components/Login';
 
-export default class MyShowsScreen extends React.Component {
+class MyShowsScreen extends React.Component {
   static navigationOptions = {
     title: 'My Shows',
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-
-        <Text>
-          Blabla mon espace perso
-        </Text>
-
+      <ScrollView>
+        <View style ={{justifyContent: 'center', alignItems: 'center' }}>
+          <Login />
+        </View>
       </ScrollView>
     );
   }
@@ -26,3 +25,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default MyShowsScreen;
