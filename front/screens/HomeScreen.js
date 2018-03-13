@@ -58,16 +58,14 @@ export default class HomeScreen extends React.Component {
     var shows =[];
     for (var i=0; i<this.state.shows.length; i++) {
 
-
-
-    // var showImg = "http://image.tmdb.org/t/p/original" + {this.state.shows[i].poster_path}
-    // shows.forEach(function(shows, i){
+    var showRoot = "http://image.tmdb.org/t/p/original";
        shows.push(
          <Card
            key={i}
            title={this.state.shows[i].name}
            // image={require("http://image.tmdb.org/t/p/original/h1AaHftlM5Qp4qqHWJzFyDLtqxk.jpg")}
-           // image={require(showImg)}
+           // image={require(showImg + this.state.shows[i].poster_path)}
+           image={{uri: showRoot}}
           >
           <ViewMoreText
             numberOfLines={3}
