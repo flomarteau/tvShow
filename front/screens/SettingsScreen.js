@@ -13,7 +13,7 @@ class SettingsScreen extends React.Component {
     return (
       <ImageBackground style={{flex: 1}} source={require("../assets/images/milkyway.png")}>
         <ScrollView>
-          <Overlay isVisible={true} height={370}  >
+          <Overlay isVisible={true} height={370} overlayStyle={{marginBottom: 130}}  >
             <Settingform />
           </Overlay>
           </ScrollView>
