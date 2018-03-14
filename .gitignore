@@ -1,2 +1,5 @@
 node_modules/**/*
 .expo/**/*
+package-lock.json/**/*
+front/package-lock.json/**/*
+back/package-lock.json/**/*
