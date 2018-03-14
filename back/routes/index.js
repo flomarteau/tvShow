@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose= require('mongoose');
+var request = require('request');
+
 
 var options = { server: { socketOptions: {connectTimeoutMS: 5000 } }};
 mongoose.connect('mongodb://Createur:createur@ds111299.mlab.com:11299/tv_show_app',
@@ -32,8 +34,9 @@ router.get('/shows', function(req, res, next) {
     function(error, response, body) {
       body = JSON.parse(body);
       res.json(body.results);
-    });
+    })
   });
+
 
 
 router.get('/users', function(req, res, next) {
