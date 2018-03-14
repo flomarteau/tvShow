@@ -1,18 +1,30 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { Card, Button, Header } from 'react-native-elements'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+  View,
+  Modal,
+  Button
+} from 'react-native';
+import { Card } from 'react-native-elements'
 
 import ViewMoreText from 'react-native-view-more-text';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Shows',
+    // header: null
   };
 
   constructor() {
     super();
+    this.setModalVisible = this.setModalVisible.bind(this);
     this.state = {
-      shows: []
+      shows: [],
+      modalVisible: false
     }
   }
 
@@ -32,12 +44,14 @@ export default class HomeScreen extends React.Component {
     )
   }
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
   componentDidMount() {
-    // var URL = 'http://127.0.0.1:3000/';
     var ctx = this;
     // fetch data from back route
-    fetch('http://127.0.0.1:3000/shows')
+    fetch('http://172.168.15.36:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -47,7 +61,7 @@ export default class HomeScreen extends React.Component {
         ctx.setState({shows: data});
         // console.log(data);
       })
-      // catcher error if there is any
+      // catche error if there is any
       .catch(function(error) {
         console.log('Request failed', error);
       })
@@ -57,16 +71,19 @@ export default class HomeScreen extends React.Component {
 
     var shows =[];
     for (var i=0; i<this.state.shows.length; i++) {
-
-    var showRoot = "http://image.tmdb.org/t/p/original";
+      var showImg = {uri: "http://image.tmdb.org/t/p/original" + this.state.shows[i].poster_path };
        shows.push(
+       <TouchableOpacity
+         onPress={ () => { this.setModalVisible(true);} }
+         activeOpacity={0.8}
+         key={i}
+       >
          <Card
            key={i}
            title={this.state.shows[i].name}
-           // image={require("http://image.tmdb.org/t/p/original/h1AaHftlM5Qp4qqHWJzFyDLtqxk.jpg")}
-           // image={require(showImg + this.state.shows[i].poster_path)}
-           image={{uri: showRoot}}
-          >
+           image={ showImg }
+         >
+
           <ViewMoreText
             numberOfLines={3}
             renderViewMore={this.renderViewMore}
@@ -78,14 +95,38 @@ export default class HomeScreen extends React.Component {
          </ViewMoreText>
 
          </Card>
+       </TouchableOpacity>
        );
      }
 
 
     return (
       <ScrollView style={styles.container}>
-
         { shows }
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            console.log('fermeture de modale');
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text>Hello World!</Text>
+
+              <Button
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+                title="Watching"
+                color="#841584"
+              />
+
+
+            </View>
+          </View>
+        </Modal>
 
       </ScrollView>
     );
