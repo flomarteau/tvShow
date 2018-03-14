@@ -21,6 +21,8 @@ var userSchema = mongoose.Schema({
 
 var UserModel = mongoose.model('users', userSchema);
 
+var request = require('request');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -32,8 +34,10 @@ router.get('/shows', function(req, res, next) {
     function(error, response, body) {
       body = JSON.parse(body);
       res.json(body.results);
-    });
-});
+    })
+  });
+
+
 
 router.get('/users', function(req, res, next) {
   UserModel.find({},(error, users) => {
@@ -80,6 +84,5 @@ router.get('/signin', function(req, res, next) {
       }
     }
  )
-});
 
 module.exports = router;
