@@ -1,28 +1,25 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Overlay } from 'react-native-elements';
 
-export default class SettingsScreen extends React.Component {
+import Settingform from '../components/Settingform';
+
+class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Settings',
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-
-        <Text>
-          Blabla mes settings admin
-        </Text>
-
-      </ScrollView>
+      <ImageBackground style={{flex: 1}} source={require("../assets/images/milkyway.png")}>
+        <ScrollView>
+          <Overlay isVisible={true} height={370} overlayStyle={{marginBottom: 130}}  >
+            <Settingform />
+          </Overlay>
+          </ScrollView>
+      </ImageBackground>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-});
+export default SettingsScreen;
