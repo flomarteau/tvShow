@@ -1,6 +1,8 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import Login from '../components/Login';
+import { ScrollView, StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Overlay } from 'react-native-elements';
+
+import Settingform from '../components/Settingform';
 
 class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -9,21 +11,15 @@ class SettingsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View style ={{justifyContent: 'center', alignItems: 'center' }}>
-          <Login />
-        </View>
-      </ScrollView>
+      <ImageBackground style={{flex: 1}} source={require("../assets/images/milkyway.png")}>
+        <ScrollView>
+          <Overlay isVisible={true} height={370}  >
+            <Settingform />
+          </Overlay>
+          </ScrollView>
+      </ImageBackground>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-});
 
 export default SettingsScreen;

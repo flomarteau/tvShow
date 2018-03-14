@@ -29,7 +29,9 @@ class Signinform extends React.Component {
             height: 45,
             borderColor: "transparent",
             borderWidth: 0,
-            borderRadius: 5
+            borderRadius: 5,
+            marginBottom: 15,
+            marginTop: 15
           }}
           containerStyle={{ marginTop: 20 }}
         />

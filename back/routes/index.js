@@ -50,14 +50,21 @@ router.post('/signup', function(req, res, next) {
 
 //Connexion à un profil via le signin
 router.get('/signin', function(req, res, next) {
+  console.log('il passe dans la route');
+  console.log(req.query.email);
+  console.log(req.query.password);
+
   UserModel.find({
     email: req.query.email,
     password: req.query.password
   },
     function (err, users) {
       if(users.length >0 ) {
+        console.log('on est la : ');
+        console.log(users);
         res.json({ result: true, firstName: users[0].firstName, lastName:users[0].lastName, email:users[0].email, password:users[0].password });
       } else {
+        console.log('on a rien trouvé');
         res.json({ result: false });
       }
     }

@@ -7,10 +7,13 @@ import RootNavigation from './navigation/RootNavigation';
 import {Provider} from 'react-redux';
 import {combineReducers, createStore}  from 'redux';
 
+import loginAction from './reducer/loginAction.reducer';
+
 import { reducer as formReducer } from 'redux-form';
 
 var allReducers= combineReducers({
-  form: formReducer
+  form: formReducer,
+  loginAction,
  });
 
 const store = createStore(allReducers);

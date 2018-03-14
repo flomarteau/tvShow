@@ -40,7 +40,8 @@ class Signupform extends React.Component {
             height: 45,
             borderColor: "transparent",
             borderWidth: 0,
-            borderRadius: 5
+            borderRadius: 5,
+            marginBottom: 20,
           }}
           containerStyle={{ marginTop: 20 }}
         />
