@@ -15,21 +15,11 @@ constructor(){
   this.submitSignin = this.submitSignin.bind(this);
 }
 
-// submitSignup(values){
-//  console.log(values)
-//  console.log(this.props.visible)
-// }
-//
-// submitSignin(values){
-// console.log(values)
-// console.log(this.props.visible)
-// }
-
 //Fetch Post du Signupform
 submitSignup(values){
   console.log('1 je suis dans le fetch du signup')
   const ctx = this;
-  fetch('http://172.168.15.45:3000/signup', {
+  fetch('http://10.2.1.63:3000/signup', {
     method: 'post',
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -50,7 +40,7 @@ submitSignup(values){
 //Fetch Get du SignInForm
 submitSignin(values){
   const ctx = this;
-  fetch('http://172.168.15.45:3000/signin?email=' + values.email + '&password=' + values.password, {
+  fetch('http://10.2.1.63:3000/signin?email=' + values.email + '&password=' + values.password, {
     method: 'get',
     headers: {"Content-Type": "application/json"},
   })

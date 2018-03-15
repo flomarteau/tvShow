@@ -4,7 +4,6 @@ import { Input, Button } from 'react-native-elements';
 import { reduxForm, Field } from "redux-form";
 import textAccount from './textAccount';
 
-
 class Signupform extends React.Component {
 
   render(){
