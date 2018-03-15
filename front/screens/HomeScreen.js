@@ -7,9 +7,11 @@ import {
   TouchableHighlight,
   View,
   Modal,
-  Button
+  Button,
+  ImageBackground
 } from 'react-native';
 import { Card } from 'react-native-elements'
+
 
 import ViewMoreText from 'react-native-view-more-text';
 
@@ -70,32 +72,50 @@ export default class HomeScreen extends React.Component {
   render() {
 
     var shows =[];
+
     for (var i=0; i<this.state.shows.length; i++) {
       var showImg = {uri: "http://image.tmdb.org/t/p/original" + this.state.shows[i].poster_path };
        shows.push(
+       // <TouchableOpacity
+       //   onPress={ () => {this.setModalVisible(true); }}
+       //   activeOpacity={0.8}
+       //   key={i}
+       // >
+       //   <Card
+       //     key={i}
+       //     title={this.state.shows[i].name}
+       //     image={ showImg }
+       //   >
+       //
+       //    <ViewMoreText
+       //      numberOfLines={3}
+       //      renderViewMore={this.renderViewMore}
+       //      renderViewLess={this.renderViewLess}
+       //    >
+       //     <Text style={{marginBottom: 10}}>
+       //       {this.state.shows[i].overview}
+       //     </Text>
+       //   </ViewMoreText>
+       //
+       //   </Card>
+       // </TouchableOpacity>
+
        <TouchableOpacity
-         onPress={ () => { this.setModalVisible(true);} }
+         onPress={ () => {this.setModalVisible(true); }}
          activeOpacity={0.8}
          key={i}
        >
-         <Card
-           key={i}
-           title={this.state.shows[i].name}
-           image={ showImg }
-         >
-
-          <ViewMoreText
-            numberOfLines={3}
-            renderViewMore={this.renderViewMore}
-            renderViewLess={this.renderViewLess}
-          >
-           <Text style={{marginBottom: 10}}>
-             {this.state.shows[i].overview}
-           </Text>
-         </ViewMoreText>
-
-         </Card>
-       </TouchableOpacity>
+        <ImageBackground source={ showImg } style={styles.imageBackground}>
+          <Text style={[styles.text, styles.title]}>
+            { this.state.shows[i].name.toUpperCase() }
+          </Text>
+          <View style={styles.rating}>
+            <Text style={[styles.text, styles.value]}>
+              Rating: { this.state.shows[i].vote_average }
+            </Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
        );
      }
 
@@ -111,9 +131,14 @@ export default class HomeScreen extends React.Component {
           onRequestClose={() => {
             console.log('fermeture de modale');
           }}>
-          <View style={{marginTop: 22}}>
+          <View style={{paddingTop: 100}}>
             <View>
-              <Text>Hello World!</Text>
+              <Text>
+                SHOW NAME
+              </Text>
+              <Text>
+                SHOW DESC
+              </Text>
 
               <Button
                 onPress={() => {
@@ -121,6 +146,7 @@ export default class HomeScreen extends React.Component {
                 }}
                 title="Watching"
                 color="#841584"
+                // style={styles.modalButton}
               />
 
 
@@ -136,7 +162,34 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
+    // paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  imageBackground: {
+    height: 220,
+    justifyContent: 'center',           // Center vertically
+    alignItems: 'center',               // Center horizontally
+  },
+  // Shared text style
+  text: {
+    color: '#fff',                      // White text color
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',           
+    fontFamily: 'Avenir',               // Change default font
+    fontWeight: 'bold',                 // Bold font
+    // Add text shadow
+    textShadowColor: '#222',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+  },
+  // Movie title
+  title: {
+    fontSize: 25,                       // Bigger font size
+  },
+  value: {
+    fontSize: 16,                       // Smaller font size
+  },
+  // Rating row
+  rating: {
+    flexDirection: 'row',               // Arrange icon and rating in one line
   },
 });
