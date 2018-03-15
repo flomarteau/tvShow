@@ -1,51 +1,35 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Label, Text } from 'native-base';
-import { Divider, Button } from 'react-native-elements';
-import { initialize, reduxForm, Field } from "redux-form";
+import React from 'react';
+import { Text, View } from 'react-native';
+import { Input, Button, Divider } from 'react-native-elements';
+import { reduxForm, Field } from "redux-form";
 import textSetting from './textSetting';
 
+class Settingform extends React.Component {
 
-class Settingform extends Component {
   render() {
     return (
-      <Container>
-        <Content>
-          <Form>
-
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Field
-                name="firstName"
-                component={textSetting}
-                />
-            </Item>
-
-            <Item floatingLabel last>
-              <Label>Last Name</Label>
-              <Field
-                name="lastName"
-                component={textSetting}
-                />
-            </Item>
-
-            <Item floatingLabel last>
-              <Label>Email</Label>
-              <Field
-                name="email"
-                component={textSetting}
-                />
-            </Item>
-
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Field
-                name="password"
-                component={textSetting}
-                />
-            </Item>
-
+      <View>
+            <Field
+              name="email"
+              component={textSetting}
+              fieldName="Email"
+            />
+            <Field
+              name="firstName"
+              component={textSetting}
+              fieldName="First Name"
+            />
+            <Field
+              name="lastName"
+              component={textSetting}
+              fieldName="Last Name"
+            />
+            <Field
+              name="password"
+              component={textSetting}
+              fieldName="password"
+            />
             <Divider style={{ height: 20, backgroundColor: 'white' }} />
-
             <Button
               onPress={this.props.handleSubmit}
               title="Save My Settings"
@@ -57,12 +41,10 @@ class Settingform extends Component {
                 borderColor: "transparent",
                 borderWidth: 0,
                 borderRadius: 5,
+                marginTop: 5
               }}
             />
-
-          </Form>
-        </Content>
-      </Container>
+      </View>
     );
   }
 }
