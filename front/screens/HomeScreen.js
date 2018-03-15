@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     var ctx = this;
     // fetch data from back route
-    fetch('http://172.168.15.36:3000/shows')
+    fetch('http://10.2.1.60:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
