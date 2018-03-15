@@ -29,10 +29,10 @@ router.get('/', function(req, res, next) {
 router.get('/shows', function(req, res, next) {
   request(
     "https://api.themoviedb.org/3/discover/tv?api_key=57d6fa067a2b6c52e97ec557f764514f&language=en-US&sort_by=popularity.desc&include_null_first_air_dates=false",
-    function(error, response, body) {
-      body = JSON.parse(body);
-      res.json(body.results);
-    });
+        function(error, response, body) {
+          body = JSON.parse(body);
+          res.json(body.results);
+        });
 });
 
 router.get('/users', function(req, res, next) {
