@@ -10,9 +10,8 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/tv_splashscreen.jpg",
+      "resizeMode": "cover"
     },
     "ios": {
       "supportsTablet": true
