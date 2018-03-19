@@ -9,11 +9,13 @@ class Settingform extends React.Component {
   render() {
     return (
       <View>
+            <Text h2 style={{fontSize: 30, color: '#fa983a', marginLeft: 65, marginBottom: 15, marginTop: 10}}>Profile To Update</Text>
             <Field
               name="email"
               component={textSetting}
               fieldName="Email"
             />
+            <Divider style={{ height: 40, backgroundColor: 'white' }} />
             <Field
               name="firstName"
               component={textSetting}
@@ -35,13 +37,14 @@ class Settingform extends React.Component {
               title="Save My Settings"
               textStyle={{ fontWeight: "700" }}
               buttonStyle={{
-                backgroundColor: "#3498db",
+                backgroundColor: "#fa983a",
                 width: 200,
                 height: 45,
                 borderColor: "transparent",
                 borderWidth: 0,
                 borderRadius: 5,
-                marginTop: 5
+                marginTop: 5,
+                marginBottom: 15
               }}
             />
       </View>
