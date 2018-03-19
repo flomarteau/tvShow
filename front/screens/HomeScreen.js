@@ -7,26 +7,36 @@ import {
   TouchableHighlight,
   View,
   Modal,
-  Button,
   ImageBackground
 } from 'react-native';
-import { Card } from 'react-native-elements'
-
-
+import { Card, Header, Divider, Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import ViewMoreText from 'react-native-view-more-text';
+import ShowList from '../components/ShowList';
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Shows',
-    // header: null
+    header:
+    <Header
+      backgroundColor='#fa983a'
+      leftComponent={{ icon: 'menu', color: '#fff' }}
+      centerComponent={{ text: 'AVAILABLE SHOWS', style: { color: '#fff' } }}
+      rightComponent={{ color: '#fff' }}
+    />
   };
 
   constructor() {
     super();
     this.setModalVisible = this.setModalVisible.bind(this);
+    this.addCurrentShow = this.addCurrentShow.bind(this);
+
     this.state = {
       shows: [],
-      modalVisible: false
+      modalVisible: false,
+      nameShowSelected: "",
+      overviewShowSelected: ""
     }
   }
 
@@ -46,14 +56,20 @@ export default class HomeScreen extends React.Component {
     )
   }
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+  setModalVisible(visible, name, overview) {
+    console.log(name);
+    console.log(overview);
+    this.setState({modalVisible: visible, nameShowSelected: name, overviewShowSelected: overview});
+  }
+
+  addCurrentShow(name) {
+    console.log('le bouton fonctionne', name);
   }
 
   componentDidMount() {
     var ctx = this;
     // fetch data from back route
-    fetch('http://10.2.1.60:3000/shows')
+    fetch('http://10.2.1.63:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -76,94 +92,89 @@ export default class HomeScreen extends React.Component {
     for (var i=0; i<this.state.shows.length; i++) {
       var showImg = {uri: "http://image.tmdb.org/t/p/original" + this.state.shows[i].poster_path };
        shows.push(
-       // <TouchableOpacity
-       //   onPress={ () => {this.setModalVisible(true); }}
-       //   activeOpacity={0.8}
-       //   key={i}
-       // >
-       //   <Card
-       //     key={i}
-       //     title={this.state.shows[i].name}
-       //     image={ showImg }
-       //   >
-       //
-       //    <ViewMoreText
-       //      numberOfLines={3}
-       //      renderViewMore={this.renderViewMore}
-       //      renderViewLess={this.renderViewLess}
-       //    >
-       //     <Text style={{marginBottom: 10}}>
-       //       {this.state.shows[i].overview}
-       //     </Text>
-       //   </ViewMoreText>
-       //
-       //   </Card>
-       // </TouchableOpacity>
-
-       <TouchableOpacity
-         onPress={ () => {this.setModalVisible(true); }}
-         activeOpacity={0.8}
-         key={i}
-       >
-        <ImageBackground source={ showImg } style={styles.imageBackground}>
-          <Text style={[styles.text, styles.title]}>
-            { this.state.shows[i].name.toUpperCase() }
-          </Text>
-          <View style={styles.rating}>
-            <Text style={[styles.text, styles.value]}>
-              Rating: { this.state.shows[i].vote_average }
-            </Text>
-          </View>
-        </ImageBackground>
-      </TouchableOpacity>
+          <ShowList name={this.state.shows[i].name} overview={this.state.shows[i].overview} poster_path={this.state.shows[i].poster_path } setModalVisible={this.setModalVisible}/>
        );
      }
 
+     shows.push(<Modal
+       animationType="slide"
+       transparent={true}
+       visible={this.state.modalVisible}
+       onRequestClose={() => {
+         console.log('fermeture de modale');
+       }}>
 
-    return (
-      <ScrollView style={styles.container}>
-        { shows }
+         <View style={{marginTop: 100, marginLeft: 10, marginRight: 10, paddingTop: 50, paddingBottom: 50, alignItems: 'center', backgroundColor: 'white', height: 'auto', borderRadius: 20}}>
 
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            console.log('fermeture de modale');
-          }}>
-          <View style={{paddingTop: 100}}>
-            <View>
-              <Text>
-                SHOW NAME
-              </Text>
-              <Text>
-                SHOW DESC
-              </Text>
+           <Text style={{fontSize: 50}}>
+             {this.state.nameShowSelected}
+           </Text>
+           <Divider style={{ height: 25, backgroundColor: 'white' }} />
+           <Text style={{fontSize: 20, margin: 10, padding: 15, borderWidth: 3, borderColor: '#fa983a', borderRadius: 40}}>
+             {this.state.overviewShowSelected}
+           </Text>
+           <Divider style={{ height: 25, backgroundColor: 'white' }} />
+           <Button
+             icon={
+                     <Icon
+                       name='list'
+                       size={20}
+                       color='white'
+                     />
+                   }
+             onPress={this.addCurrentShow(this.state.nameShowSelected)}
+             title='Add this TV Show'
+             buttonStyle={{backgroundColor: "#fa983a"}}
+           />
+           <Button
+             icon={
+                     <Icon
+                       name='list'
+                       size={20}
+                       color='white'
+                     />
+                   }
+             onPress={() => {this.setModalVisible(!this.state.modalVisible);}}
+             title="Close the window"
+             color="#fa983a"
+             // style={styles.modalButton}
+           />
 
-              <Button
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-                title="Watching"
-                color="#841584"
-                // style={styles.modalButton}
-              />
+         </View>
 
+     </Modal>);
 
-            </View>
-          </View>
-        </Modal>
-
-      </ScrollView>
-    );
+    if (this.state.modalVisible){
+          return (
+                    <ScrollView style={styles.containerModalOpened}>
+                        { shows }
+                    </ScrollView>
+                );
+    }else{
+          return (
+                    <ScrollView style={styles.container}>
+                        { shows }
+                    </ScrollView>
+                );
+  };
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  containerModalOpened: {
+    opacity: 0.2,
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  imageBackgroundModal: {
+    height: 600,
+    opacity: 0.2,
+    justifyContent: 'center',           // Center vertically
+    alignItems: 'center',               // Center horizontally
   },
   imageBackground: {
     height: 220,
@@ -173,7 +184,7 @@ const styles = StyleSheet.create({
   // Shared text style
   text: {
     color: '#fff',                      // White text color
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',           
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     fontFamily: 'Avenir',               // Change default font
     fontWeight: 'bold',                 // Bold font
     // Add text shadow

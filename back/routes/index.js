@@ -85,8 +85,7 @@ router.put('/update', function(req, res, next) {
     function(error, users) {
       res.json(users);
     }
-);
-
+  );
 });
 
 
