@@ -14,33 +14,30 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ShowList extends React.Component {
 
-
-  render(){
-    var showImg = {uri: "http://image.tmdb.org/t/p/original" + this.props.poster_path };
+  render() {
+    var showImg = {uri: this.props.poster };
 
     return(
+      <TouchableOpacity
+        onPress={ () => {  this.props.setModalVisible(true, this.props.title, this.props.description ) }}
+        activeOpacity={0.8}
+      >
 
-<TouchableOpacity
-  onPress={ () => {  this.props.setModalVisible(true, this.props.name, this.props.overview ) }}
-  activeOpacity={0.8}
->
- <ImageBackground source={ showImg } style={styles.imageBackground}>
-   <Text style={[styles.text, styles.title]}>
-     { this.props.name.toUpperCase() }
-   </Text>
-   <View style={styles.rating}>
-     <Text style={[styles.text, styles.value]}>
-       Rating: { this.props.vote_average }
-     </Text>
-   </View>
- </ImageBackground>
+       <ImageBackground source={ showImg } style={styles.imageBackground}>
+         <Text style={[styles.text, styles.title]}>
+           { this.props.title.toUpperCase() }
+         </Text>
+         <View style={styles.rating}>
+           <Text style={[styles.text, styles.value]}>
+             { this.props.seasons } saisons-
+             { this.props.episodes } épisodes
+           </Text>
+         </View>
+       </ImageBackground>
 
-
-
-</TouchableOpacity>
-
-)
-}
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

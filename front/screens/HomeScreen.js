@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
       shows: [],
       modalVisible: false,
       nameShowSelected: "",
-      overviewShowSelected: ""
+      descriptionShowSelected: ""
     }
   }
 
@@ -56,20 +56,20 @@ export default class HomeScreen extends React.Component {
     )
   }
 
-  setModalVisible(visible, name, overview) {
-    console.log(name);
-    console.log(overview);
-    this.setState({modalVisible: visible, nameShowSelected: name, overviewShowSelected: overview});
+  setModalVisible(visible, title, description) {
+    console.log(title);
+    console.log(description);
+    this.setState({modalVisible: visible, nameShowSelected: title, descriptionShowSelected: description});
   }
 
-  addCurrentShow(name) {
-    console.log('le bouton fonctionne', name);
+  addCurrentShow(title) {
+    console.log('le bouton fonctionne', title);
   }
 
   componentDidMount() {
     var ctx = this;
     // fetch data from back route
-    fetch('http://10.2.1.63:3000/shows')
+    fetch('http://10.2.1.60:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -90,9 +90,17 @@ export default class HomeScreen extends React.Component {
     var shows =[];
 
     for (var i=0; i<this.state.shows.length; i++) {
-      var showImg = {uri: "http://image.tmdb.org/t/p/original" + this.state.shows[i].poster_path };
+
        shows.push(
-          <ShowList name={this.state.shows[i].name} overview={this.state.shows[i].overview} poster_path={this.state.shows[i].poster_path } setModalVisible={this.setModalVisible}/>
+          <ShowList
+            title={ this.state.shows[i].title }
+            description={ this.state.shows[i].description }
+            poster={ this.state.shows[i].images.poster }
+            setModalVisible={ this.setModalVisible }
+            seasons={ this.state.shows[i].seasons }
+            episodes={ this.state.shows[i].episodes }
+            status={ this.state.shows[i].status }
+          />
        );
      }
 
@@ -111,7 +119,7 @@ export default class HomeScreen extends React.Component {
            </Text>
            <Divider style={{ height: 25, backgroundColor: 'white' }} />
            <Text style={{fontSize: 20, margin: 10, padding: 15, borderWidth: 3, borderColor: '#fa983a', borderRadius: 40}}>
-             {this.state.overviewShowSelected}
+             {this.state.descriptionShowSelected}
            </Text>
            <Divider style={{ height: 25, backgroundColor: 'white' }} />
            <Button
