@@ -2,6 +2,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, SegmentedControlIOS } from 'react-native';
 import { Overlay, Header } from 'react-native-elements';
 import Login from '../components/Login';
+import MyShowList from '../components/MyShowList';
+
 import {connect} from 'react-redux';
 
 class MyShowsScreen extends React.Component {
@@ -17,6 +19,19 @@ class MyShowsScreen extends React.Component {
   };
 
   render() {
+
+    var myshows =[];
+
+     myshows.push(
+        <MyShowList
+          title={ this.props.title }
+          poster={ this.props.poster }
+          seasons={ this.props.seasons }
+          episodes={ this.props.episodes }
+        />
+     );
+
+
     console.log(this.props.visible)
     return (
       <ScrollView stickyHeaderIndices={[0]}>
@@ -31,12 +46,12 @@ class MyShowsScreen extends React.Component {
             }}
           />
         </View>
+        {myshows}
         <View style ={{justifyContent: 'center', alignItems: 'center' }}>
           <Overlay isVisible={this.props.visible} height="auto" overlayStyle={{justifyContent: 'center', alignItems: 'center', marginBottom: 100}}>
             <Login />
           </Overlay>
         </View>
-
       </ScrollView>
     );
   }
@@ -55,8 +70,14 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  // console.log(state.loginAction.login)
-  return { visible: !state.loginAction.login }
+  //console.log('test', state);
+  return {
+    visible: !state.loginAction.login,
+    name: state.watching.title,
+    poster: state.watching.poster,
+    seasons: state.watching.seasons,
+    episodes: state.watching.episodes,
+  }
 }
 
 export default connect(
