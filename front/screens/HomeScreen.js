@@ -176,7 +176,20 @@ function mapDispatchToProps(dispatch) {
   return {
     addCurrentShow: function(title, poster, seasons, episodes) {
       console.log("test addCurrentShow");
-      // il faudra enregistrer en bdd en utilisant le fetch
+
+      // fetch('https://jsonplaceholder.typicode.com/users', {
+      //   method: 'POST',
+      //   headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      //   body: 'name=john&username=doe&email=john@gmail.com'
+      // }).then(function(response) {
+      //     return response.json();
+      // })
+      // .then(function(data) {
+      //     console.log(data);
+      // }).catch(function(error) {
+      //     console.log('Request failed', error)
+      // });
+
       dispatch({
         type: 'watching',
         name: title,
