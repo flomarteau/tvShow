@@ -8,12 +8,14 @@ import {Provider} from 'react-redux';
 import {combineReducers, createStore}  from 'redux';
 
 import loginAction from './reducer/loginAction.reducer';
+import watching from './reducer/watching.reducer';
 
 import { reducer as formReducer } from 'redux-form';
 
 var allReducers= combineReducers({
   form: formReducer,
   loginAction,
+  watching,
  });
 
 const store = createStore(allReducers);

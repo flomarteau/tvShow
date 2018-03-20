@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import { Card, Header, Divider, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ViewMoreText from 'react-native-view-more-text';
 import ShowList from '../components/ShowList';
+import { connect } from 'react-redux';
 
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Shows',
     header:
@@ -36,34 +36,28 @@ export default class HomeScreen extends React.Component {
       shows: [],
       modalVisible: false,
       nameShowSelected: "",
-      descriptionShowSelected: ""
+      descriptionShowSelected: "",
+      posterShowSelected: "",
+      seasonsShowSelected: "",
+      episodesShowSelected: "",
     }
   }
 
-  renderViewMore(onPress){
-    return(
-      <Text onPress={onPress} style={{color:'#fa983a'}}>
-        Read more
-      </Text>
-    )
-  }
-
-  renderViewLess(onPress){
-    return(
-      <Text onPress={onPress} style={{color:'#fa983a'}}>
-        Read less
-      </Text>
-    )
-  }
-
-  setModalVisible(visible, title, description) {
-    console.log(title);
-    console.log(description);
-    this.setState({modalVisible: visible, nameShowSelected: title, descriptionShowSelected: description});
+  setModalVisible(visible, title, description, poster, seasons, episodes) {
+    // console.log(title);
+    // console.log(description);
+    this.setState({
+      modalVisible: visible,
+      nameShowSelected: title,
+      descriptionShowSelected: description,
+      posterShowSelected: poster,
+      seasonsShowSelected: seasons,
+      episodesShowSelected: episodes,
+    });
   }
 
   addCurrentShow(title) {
-    console.log('le bouton fonctionne', title);
+    console.log('le bouton addCurrentShow fonctionne', title);
   }
 
   componentDidMount() {
@@ -93,6 +87,7 @@ export default class HomeScreen extends React.Component {
 
        shows.push(
           <ShowList
+            key={i}
             title={ this.state.shows[i].title }
             description={ this.state.shows[i].description }
             poster={ this.state.shows[i].images.poster }
@@ -104,13 +99,16 @@ export default class HomeScreen extends React.Component {
        );
      }
 
-     shows.push(<Modal
-       animationType="slide"
-       transparent={true}
-       visible={this.state.modalVisible}
-       onRequestClose={() => {
-         console.log('fermeture de modale');
-       }}>
+    shows.push(
+      <Modal
+         key={i}
+         animationType="slide"
+         transparent={true}
+         visible={this.state.modalVisible}
+         onRequestClose={() => {
+           console.log('fermeture de modale');
+         }}
+      >
 
          <View style={{marginTop: 100, marginLeft: 10, marginRight: 10, paddingTop: 50, paddingBottom: 50, alignItems: 'center', backgroundColor: 'white', height: 'auto', borderRadius: 20}}>
 
@@ -124,24 +122,29 @@ export default class HomeScreen extends React.Component {
            <Divider style={{ height: 25, backgroundColor: 'white' }} />
            <Button
              icon={
-                     <Icon
-                       name='list'
-                       size={20}
-                       color='white'
-                     />
-                   }
-             onPress={this.addCurrentShow(this.state.nameShowSelected)}
+               <Icon
+                 name='list'
+                 size={20}
+                 color='white'
+               />
+             }
+             onPress={()=>{this.props.addCurrentShow(
+               this.state.nameShowSelected,
+               this.state.posterShowSelected,
+               this.state.seasonsShowSelected,
+               this.state.episodesShowSelected,
+             )}}
              title='Add this TV Show'
              buttonStyle={{backgroundColor: "#fa983a"}}
            />
            <Button
              icon={
-                     <Icon
-                       name='list'
-                       size={20}
-                       color='white'
-                     />
-                   }
+               <Icon
+                 name='list'
+                 size={20}
+                 color='white'
+               />
+             }
              onPress={() => {this.setModalVisible(!this.state.modalVisible);}}
              title="Close the window"
              color="#fa983a"
@@ -150,23 +153,45 @@ export default class HomeScreen extends React.Component {
 
          </View>
 
-     </Modal>);
+      </Modal>
+    );
 
     if (this.state.modalVisible){
-          return (
-                    <ScrollView style={styles.containerModalOpened}>
-                        { shows }
-                    </ScrollView>
-                );
-    }else{
-          return (
-                    <ScrollView style={styles.container}>
-                        { shows }
-                    </ScrollView>
-                );
-  };
+      return (
+        <ScrollView style={styles.containerModalOpened}>
+          { shows }
+        </ScrollView>
+      );
+    } else {
+      return (
+        <ScrollView style={styles.container}>
+          { shows }
+        </ScrollView>
+      );
+    };
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addCurrentShow: function(title, poster, seasons, episodes) {
+      console.log("test addCurrentShow");
+      // il faudra enregistrer en bdd en utilisant le fetch
+      dispatch({
+        type: 'watching',
+        name: title,
+        poster: poster,
+        seasons: seasons,
+        episodes: episodes,
+      });
+    }
+  }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
