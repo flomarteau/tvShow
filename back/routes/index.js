@@ -6,20 +6,30 @@ var request = require('request');
 
 var options = { server: { socketOptions: {connectTimeoutMS: 5000 } }};
 mongoose.connect('mongodb://Createur:createur@ds111299.mlab.com:11299/tv_show_app',
-    options,
-    function(err) {
-     console.log(err);
-    }
+  options,
+  function(err) {
+   console.log(err);
+  }
 );
 
 var userSchema = mongoose.Schema({
-    lastName: String,
-    firstName: String,
-    email: String,
-    password: String
+  lastName: String,
+  firstName: String,
+  email: String,
+  password: String
 });
 
+// var showSchema = mongoose.Schema({
+//   name: String,
+//   poster: String,
+//   episodes: String,
+//   seasons: String,
+//   userId: String,
+// });
+
 var UserModel = mongoose.model('users', userSchema);
+// var showModel = mongoose.model('users', showSchema);
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -85,6 +95,18 @@ router.put('/update', function(req, res, next) {
       res.json(users);
     }
   );
+});
+
+//Route permettant l'ajout des shows par user
+router.post('/myshows', function(req, res, next) {
+  // var newShow = new showSchema({
+  //   lastName: req.body.lastName,
+  //   firstName: req.body.firstName,
+  //   email: req.body.email,
+  //   password: req.body.password});
+  // newUser.save(function(error, user) {
+  //   res.send("Sign up is done");
+  // });
 });
 
 

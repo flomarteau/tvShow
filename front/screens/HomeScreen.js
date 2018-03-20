@@ -85,29 +85,29 @@ class HomeScreen extends React.Component {
 
     for (var i=0; i<this.state.shows.length; i++) {
 
-       shows.push(
-          <ShowList
-            key={i}
-            title={ this.state.shows[i].title }
-            description={ this.state.shows[i].description }
-            poster={ this.state.shows[i].images.poster }
-            setModalVisible={ this.setModalVisible }
-            seasons={ this.state.shows[i].seasons }
-            episodes={ this.state.shows[i].episodes }
-            status={ this.state.shows[i].status }
-          />
-       );
-     }
+      shows.push(
+        <ShowList
+          key={i}
+          title={ this.state.shows[i].title }
+          description={ this.state.shows[i].description }
+          poster={ this.state.shows[i].images.poster }
+          setModalVisible={ this.setModalVisible }
+          seasons={ this.state.shows[i].seasons }
+          episodes={ this.state.shows[i].episodes }
+          status={ this.state.shows[i].status }
+        />
+      );
+    }
 
     shows.push(
       <Modal
-         key={i}
-         animationType="slide"
-         transparent={true}
-         visible={this.state.modalVisible}
-         onRequestClose={() => {
-           console.log('fermeture de modale');
-         }}
+        key={i}
+        animationType="slide"
+        transparent={true}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          console.log('fermeture de modale');
+        }}
       >
 
          <View style={{marginTop: 100, marginLeft: 10, marginRight: 10, paddingTop: 50, paddingBottom: 50, alignItems: 'center', backgroundColor: 'white', height: 'auto', borderRadius: 20}}>

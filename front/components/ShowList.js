@@ -19,7 +19,14 @@ export default class ShowList extends React.Component {
 
     return(
       <TouchableOpacity
-        onPress={ () => {  this.props.setModalVisible(true, this.props.title, this.props.description ) }}
+        onPress={ () => {  this.props.setModalVisible(
+          true,
+          this.props.title,
+          this.props.description,
+          this.props.poster,
+          this.props.seasons,
+          this.props.episodes,
+        ) }}
         activeOpacity={0.8}
       >
 
