@@ -63,7 +63,7 @@ class HomeScreen extends React.Component {
   componentDidMount() {
     var ctx = this;
     // fetch data from back route
-    fetch('http://10.2.1.60:3000/shows')
+    fetch('http://10.2.1.63:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -133,10 +133,32 @@ class HomeScreen extends React.Component {
                this.state.posterShowSelected,
                this.state.seasonsShowSelected,
                this.state.episodesShowSelected,
+               'watching'
              )}}
              title='Add this TV Show'
              buttonStyle={{backgroundColor: "#fa983a"}}
            />
+
+           {/* //Nouveau bouton */}
+           <Button
+             icon={
+               <Icon
+                 name='list'
+                 size={20}
+                 color='white'
+               />
+             }
+             onPress={()=>{this.props.addCurrentShow(
+               this.state.nameShowSelected,
+               this.state.posterShowSelected,
+               this.state.seasonsShowSelected,
+               this.state.episodesShowSelected,
+               'watchlist'
+             )}}
+             title='Add this TV Show to watchlist'
+             buttonStyle={{backgroundColor: "#fa983a"}}
+           />
+
            <Button
              icon={
                <Icon
@@ -174,7 +196,7 @@ class HomeScreen extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addCurrentShow: function(title, poster, seasons, episodes) {
+    addCurrentShow: function(title, poster, seasons, episodes, status) {
       console.log("test addCurrentShow");
 
       // fetch('https://jsonplaceholder.typicode.com/users', {
@@ -196,6 +218,7 @@ function mapDispatchToProps(dispatch) {
         poster: poster,
         seasons: seasons,
         episodes: episodes,
+        status: status
       });
     }
   }

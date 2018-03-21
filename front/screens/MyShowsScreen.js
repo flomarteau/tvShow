@@ -24,15 +24,16 @@ class MyShowsScreen extends React.Component {
     super();
     this.state = {
       myshows: [],
+      status: 'watching',
     }
   }
 
   render() {
 
     var myshows =[];
-    console.log(this.props.watching);
+    //console.log(this.props.watching);
     for (var i=0; i<this.props.watching.length; i++) {
-
+      if(this.props.watching[i].status == this.state.status) {
       myshows.push(
         <MyShowList
           key={i}
@@ -40,9 +41,10 @@ class MyShowsScreen extends React.Component {
           poster={ this.props.watching[i].poster }
           seasons={ this.props.watching[i].seasons }
           episodes={ this.props.watching[i].episodes }
+          status={ this.props.watching[i].status }
         />
       );
-
+    };
     };
 
     // console.log(this.props.visible)
@@ -55,7 +57,13 @@ class MyShowsScreen extends React.Component {
             values={['Watching', 'Watchlist']}
             selectedIndex={0}
             onChange={(event) => {
-              this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+              var newState;
+              if(this.state.status == "watching"){
+                newState = "watchlist";
+              } else {
+                newState = "watching";
+              }
+              this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex, status: newState});
             }}
           />
         </View>
@@ -73,7 +81,7 @@ class MyShowsScreen extends React.Component {
 function mapStateToProps(state) {
   //console.log('test', state);
   return {
-    visible: !state.loginAction.login,
+    visible: state.loginAction.login,
     watching: state.watching
   }
 }
