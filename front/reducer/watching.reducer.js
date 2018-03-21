@@ -10,8 +10,8 @@ export default function (state=[], action) {
 
     var watchingCopy = [...state];
     watchingCopy.push(newShow);
-    console.log(watchingCopy);
-    //console.log(watchingCopy[0].title);
+    console.log("reducer", watchingCopy[0]);
+    // console.log("newShow" + newShow);
     // var watchingCopy = [ newShow ];
 
     return watchingCopy;

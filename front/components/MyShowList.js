@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableHighlight,
   View,
   Modal,
   ImageBackground
@@ -24,22 +23,36 @@ class MyShowList extends React.Component {
         activeOpacity={0.8}
       >
 
-       <ImageBackground source={ showImg } style={styles.imageBackground}>
-         <Text style={[styles.text, styles.title]}>
-           { this.props.title }
-         </Text>
-         <View style={styles.rating}>
-           <Text style={[styles.text, styles.value]}>
-             { this.props.seasons } saisons-
-             { this.props.episodes } épisodes
-           </Text>
-         </View>
-       </ImageBackground>
+        <ImageBackground source={ showImg } style={styles.imageBackground}>
+          <Text style={[styles.text, styles.title]}>
+            { this.props.name.toUpperCase() }
+          </Text>
+          <View style={styles.rating}>
+            <Text style={[styles.text, styles.value]}>
+              { this.props.seasons } saisons-
+              { this.props.episodes } épisodes
+            </Text>
+          </View>
+        </ImageBackground>
 
       </TouchableOpacity>
     )
   }
 }
+
+function mapStateToProps(state) {
+  // console.log(state.loginAction.login)
+  return {
+    visible: !state.loginAction.login,
+    watching: state.watching,
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(MyShowList);
+
 
 const styles = StyleSheet.create({
   container: {
@@ -74,19 +87,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row',               // Arrange icon and rating in one line
   },
 });
-
-function mapStateToProps(state) {
-  // console.log(state.loginAction.login)
-  return {
-    visible: !state.loginAction.login,
-    name: state.watching.title,
-    poster: state.watching.poster,
-    seasons: state.watching.seasons,
-    episodes: state.watching.episodes,
-  }
-}
-
-export default connect(
-    mapStateToProps,
-    null
-)(MyShowList);
