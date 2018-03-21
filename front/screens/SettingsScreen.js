@@ -56,7 +56,7 @@ class SettingsScreen extends React.Component {
 
 function mapStateToProps(state) {
   // console.log(state.loginAction.login)
-  return { visible: !state.loginAction.login }
+  return { visible: state.loginAction.login }
 }
 
 export default connect(
