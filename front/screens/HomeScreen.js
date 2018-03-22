@@ -7,9 +7,10 @@ import {
   TouchableHighlight,
   View,
   Modal,
-  ImageBackground
+  ImageBackground,
+  Image
 } from 'react-native';
-import { Card, Header, Divider, Button } from 'react-native-elements'
+import { Card, Header, Divider, Button, Badge } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ShowList from '../components/ShowList';
 import { connect } from 'react-redux';
@@ -110,68 +111,139 @@ class HomeScreen extends React.Component {
         }}
       >
 
-         <View style={{marginTop: 100, marginLeft: 10, marginRight: 10, paddingTop: 50, paddingBottom: 50, alignItems: 'center', backgroundColor: 'white', height: 'auto', borderRadius: 20}}>
+         <View style={{
+                 marginTop: 100,
+                 marginLeft: 10,
+                 marginRight: 10,
+                 paddingTop: 20,
+                 paddingBottom: 20,
+                 alignItems: 'center',
+                 backgroundColor: 'white',
+                 height: 'auto',
+                 borderRadius: 20
+               }}>
 
-           <Text style={{fontSize: 50}}>
-             {this.state.nameShowSelected}
-           </Text>
+           <Badge containerStyle={{ backgroundColor: '#fa983a'}}>
+             <Text style={{fontSize: 50, color: 'white', textAlign: 'center'}}>
+               {this.state.nameShowSelected}
+             </Text>
+           </Badge>
+
+           <Divider style={{ height: 80, backgroundColor: 'white' }} />
+
+           <View style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                marginBottom: 20,
+                marginTop: 20
+              }}>
+
+               <View>
+                 <Image
+                    style={{
+                      width: 115,
+                      height: 150,
+                      marginLeft: 80
+                    }}
+                    source={{uri: this.state.posterShowSelected }}
+                  />
+               </View>
+
+               <View style={{
+                      marginRight: 185,
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      alignItems: 'stretch',
+                   }}>
+                  <View style={{marginBottom: 50}}>
+                   <Button
+                     // icon={
+                     //   <Icon
+                     //     name='plus-square'
+                     //     size={20}
+                     //     color='white'
+                     //   />
+                     // }
+                     onPress={()=>{this.props.addCurrentShow(
+                       this.state.nameShowSelected,
+                       this.state.posterShowSelected,
+                       this.state.seasonsShowSelected,
+                       this.state.episodesShowSelected,
+                       'watching'
+                     )}}
+                     title='Add to Watching'
+                     buttonStyle={{
+                       backgroundColor: "#fa983a",
+                       borderRadius: 100,
+                       padding: 5,
+                       width: 120,
+                       height: 45,
+                       margin: 10
+                     }}
+                   />
+                 </View>
+                 <View style={{marginBottom: 50}}>
+                   <Button
+                     // icon={
+                     //   <Icon
+                     //     name='plus-square'
+                     //     size={20}
+                     //     color='white'
+                     //   />
+                     // }
+                     onPress={()=>{this.props.addCurrentShow(
+                       this.state.nameShowSelected,
+                       this.state.posterShowSelected,
+                       this.state.seasonsShowSelected,
+                       this.state.episodesShowSelected,
+                       'watchlist'
+                     )}}
+                     title='Add to Watchlist'
+                     buttonStyle={{
+                       backgroundColor: "#fa983a",
+                       borderRadius: 100,
+                       marginTop: 10,
+                       padding: 5,
+                       width: 120,
+                       height: 45,
+                       margin: 10
+                     }}
+                   />
+                 </View>
+                 <View style={{marginBottom: 60}}>
+                   <Button
+                     // icon={
+                     //   <Icon
+                     //     name='window-close'
+                     //     size={20}
+                     //     color='white'
+                     //   />
+                     // }
+                     onPress={() => {this.setModalVisible(!this.state.modalVisible);}}
+                     title="Close"
+                     color="#fa983a"
+                     buttonStyle={{
+                       borderRadius: 100,
+                       padding: 5,
+                       width: 120,
+                       height: 45,
+                       margin: 10,
+                     }}
+                   />
+                 </View>
+               </View>
+          </View>
+
            <Divider style={{ height: 25, backgroundColor: 'white' }} />
-           <Text style={{fontSize: 20, margin: 10, padding: 15, borderWidth: 3, borderColor: '#fa983a', borderRadius: 40}}>
-             {this.state.descriptionShowSelected}
-           </Text>
-           <Divider style={{ height: 25, backgroundColor: 'white' }} />
-           <Button
-             icon={
-               <Icon
-                 name='list'
-                 size={20}
-                 color='white'
-               />
-             }
-             onPress={()=>{this.props.addCurrentShow(
-               this.state.nameShowSelected,
-               this.state.posterShowSelected,
-               this.state.seasonsShowSelected,
-               this.state.episodesShowSelected,
-               'watching'
-             )}}
-             title='Add this TV Show'
-             buttonStyle={{backgroundColor: "#fa983a"}}
-           />
 
-           {/* //Nouveau bouton */}
-           <Button
-             icon={
-               <Icon
-                 name='list'
-                 size={20}
-                 color='white'
-               />
-             }
-             onPress={()=>{this.props.addCurrentShow(
-               this.state.nameShowSelected,
-               this.state.posterShowSelected,
-               this.state.seasonsShowSelected,
-               this.state.episodesShowSelected,
-               'watchlist'
-             )}}
-             title='Add this TV Show to watchlist'
-             buttonStyle={{backgroundColor: "#fa983a"}}
-           />
-
-           <Button
-             icon={
-               <Icon
-                 name='list'
-                 size={20}
-                 color='white'
-               />
-             }
-             onPress={() => {this.setModalVisible(!this.state.modalVisible);}}
-             title="Close the window"
-             color="#fa983a"
-             // style={styles.modalButton}
-           />
+          <View>
+               <Text style={{fontSize: 20, margin: 10, padding: 15, borderWidth: 3, borderColor: '#fa983a', borderRadius: 40, marginTop: 50}} >
+                   {this.state.descriptionShowSelected}
+               </Text>
+          </View>
 
          </View>
 
