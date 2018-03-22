@@ -31,9 +31,11 @@ class MyShowsScreen extends React.Component {
   render() {
 
     var myshows =[];
-    //console.log(this.props.watching);
+
     for (var i=0; i<this.props.watching.length; i++) {
+
       if(this.props.watching[i].status == this.state.status) {
+
       myshows.push(
         <MyShowList
           key={i}
@@ -43,11 +45,10 @@ class MyShowsScreen extends React.Component {
           episodes={ this.props.watching[i].episodes }
           status={ this.props.watching[i].status }
         />
-      );
+      );  
     };
     };
 
-    // console.log(this.props.visible)
     return (
       <ScrollView stickyHeaderIndices={[0]}>
         <View style={{backgroundColor: '#fff', paddingTop: 35, paddingBottom: 15}}>

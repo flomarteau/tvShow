@@ -27,13 +27,21 @@ class MyShowList extends React.Component {
   render() {
     var showImg = { uri: this.props.poster };
     var switchButton;
+
     if(this.props.status == 'watching'){
       switchButton =
+      <View
+        style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
       <Button
         icon={
           <Icon
-            name='list'
-            size={20}
+            name='arrow-right'
+            size={25}
             color='white'
           />
         }
@@ -41,16 +49,59 @@ class MyShowList extends React.Component {
           this.props.name,
           'watchlist'
         )}}
-        title='Switch to watchlist'
-        buttonStyle={{backgroundColor: "#fa983a"}}
+        title='' // Switch to Watchlist
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8}}
       />
-    } else if(this.props.status == 'watchlist') {
-      switchButton =
+
+      {/* Ci-dessous le bouton pour afficher une nouvelle modale */}
       <Button
         icon={
           <Icon
-            name='list'
-            size={20}
+            name='bookmark'
+            size={29}
+            color='white'
+          />
+        }
+        onPress={()=>{this.props.switchStatusShow(
+          this.props.name,
+          'watchlist'
+        )}}
+        title='' //Avancement dans la série
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8, marginLeft: 10, marginRight: 10}}
+      />
+      {/* fin du bouton pour afficher la nouvelle modale */}
+
+      <Button
+        icon={
+          <Icon
+            name='trash'
+            size={25}
+            color='white'
+          />
+        }
+        onPress={()=>{this.props.deleteShow(
+          this.props.name
+        )}}
+        title='' // Delete
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8}}
+      />
+
+    </View>
+
+    } else if(this.props.status == 'watchlist') {
+      switchButton =
+      <View
+        style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+      <Button
+        icon={
+          <Icon
+            name='arrow-left'
+            size={25}
             color='white'
           />
         }
@@ -58,9 +109,24 @@ class MyShowList extends React.Component {
           this.props.name,
           'watching'
         )}}
-        title='Switch to watching'
-        buttonStyle={{backgroundColor: "#fa983a"}}
+        title='' // Switch to Watching
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8, marginRight: 10}}
       />
+      <Button
+        icon={
+          <Icon
+            name='trash'
+            size={25}
+            color='white'
+          />
+        }
+        onPress={()=>{this.props.deleteShow(
+          this.props.name
+        )}}
+        title='' // Delete
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8}}
+      />
+    </View>
     }
 
     return(
@@ -71,7 +137,7 @@ class MyShowList extends React.Component {
 
         <ImageBackground source={ showImg } style={styles.imageBackground}>
           <Text style={[styles.text, styles.title]}>
-            { this.props.name }
+            { this.props.name.toUpperCase() }
           </Text>
           <View style={styles.rating}>
             <Text style={[styles.text, styles.value]}>
@@ -79,26 +145,7 @@ class MyShowList extends React.Component {
               { this.props.episodes } épisodes
             </Text>
           </View>
-          <View>
-
           {switchButton}
-
-            <Button
-              icon={
-                <Icon
-                  name='list'
-                  size={20}
-                  color='white'
-                />
-              }
-              onPress={()=>{this.props.deleteShow(
-                this.props.name
-              )}}
-              title='Delete'
-              buttonStyle={{backgroundColor: "#fa983a"}}
-            />
-
-          </View>
         </ImageBackground>
 
       </TouchableOpacity>
@@ -189,7 +236,8 @@ const styles = StyleSheet.create({
   },
   // Movie title
   title: {
-    fontSize: 25,                       // Bigger font size
+    fontSize: 25,
+    marginTop: 45                    // Bigger font size
   },
   value: {
     fontSize: 16,                       // Smaller font size
