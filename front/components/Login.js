@@ -54,8 +54,8 @@ submitSignin(values){
   render() {
     return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Signinform onSubmit={this.submitSignin} />
         <Signupform onSubmit={this.submitSignup} />
+        <Signinform onSubmit={this.submitSignin} />
         {/* permet de se diriger vers le Fetch post du Signupform */}
       </View>
   );

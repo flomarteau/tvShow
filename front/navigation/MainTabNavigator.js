@@ -12,14 +12,14 @@ import SettingsScreen from '../screens/SettingsScreen';
 export default TabNavigator(
   {
     Shows: {
-      screen: HomeScreen,
-    },
-    MyShows: {
       screen: MyShowsScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    MyShows: {
+      screen: HomeScreen,
     },
+    // Settings: {
+    //   screen: SettingsScreen,
+    // },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -27,18 +27,18 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Shows':
+          case 'MyShows':
             iconName =
               Platform.OS === 'ios'
                 ? `ios-film${focused ? '' : '-outline'}`
                 : 'md-film';
             break;
-          case 'MyShows':
+          case 'Shows':
             iconName = Platform.OS === 'ios' ? `ios-happy${focused ? '' : '-outline'}` : 'md-happy';
             break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-construct${focused ? '' : '-outline'}` : 'md-construct';
+          // case 'Settings':
+          //   iconName =
+          //     Platform.OS === 'ios' ? `ios-construct${focused ? '' : '-outline'}` : 'md-construct';
         }
         return (
           <Ionicons

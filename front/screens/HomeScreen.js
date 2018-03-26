@@ -18,13 +18,13 @@ import { connect } from 'react-redux';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Shows',
+    title: 'ALL THE POPS',
     header:
     <Header
       backgroundColor='#fa983a'
-      leftComponent={{ icon: 'menu', color: '#fff' }}
-      centerComponent={{ text: 'AVAILABLE SHOWS', style: { color: '#fff' } }}
-      rightComponent={{ color: '#fff' }}
+      // leftComponent={{ icon: 'menu', color: '#fff' }}
+      centerComponent={{ text: 'ALL THE POPS', style: { color: '#fff' } }}
+      // rightComponent={{ color: '#fff' }}
     />
   };
 
