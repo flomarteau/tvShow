@@ -50,11 +50,11 @@ class MyShowList extends React.Component {
           'watchlist'
         )}}
         title='' // Switch to Watchlist
-        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8}}
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8, marginRight: 5}}
       />
 
       {/* Ci-dessous le bouton pour afficher une nouvelle modale */}
-      <Button
+      {/* <Button
         icon={
           <Icon
             name='bookmark'
@@ -62,13 +62,12 @@ class MyShowList extends React.Component {
             color='white'
           />
         }
-        onPress={()=>{this.props.switchStatusShow(
-          this.props.name,
-          'watchlist'
+        onPress={()=>{this.props.setNewModalVisible(
+          true
         )}}
         title='' //Avancement dans la série
         buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8, marginLeft: 10, marginRight: 10}}
-      />
+      /> */}
       {/* fin du bouton pour afficher la nouvelle modale */}
 
       <Button
@@ -83,7 +82,7 @@ class MyShowList extends React.Component {
           this.props.name
         )}}
         title='' // Delete
-        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8}}
+        buttonStyle={{backgroundColor: "#fa983a", paddingLeft: 15, paddingTop: 8, paddingBottom: 8, marginLeft: 5}}
       />
 
     </View>

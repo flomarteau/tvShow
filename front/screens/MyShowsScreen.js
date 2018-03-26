@@ -6,27 +6,40 @@ import {
   View,
   SegmentedControlIOS,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Modal,
+  Button,
  } from 'react-native';
-import { Overlay, Header } from 'react-native-elements';
+import { Overlay, Header, Badge, Divider } from 'react-native-elements';
 import Login from '../components/Login';
 import MyShowList from '../components/MyShowList';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {connect} from 'react-redux';
 
 class MyShowsScreen extends React.Component {
   static navigationOptions = {
-    title: 'My Shows',
+    title: 'MY POPS',
     header: null
   };
 
   constructor() {
     super();
+    this.setNewModalVisible = this.setNewModalVisible.bind(this);
+
     this.state = {
       myshows: [],
       status: 'watching',
+      newmodalVisible: false,
     }
   }
+
+  setNewModalVisible(visible) {
+    this.setState({
+      newmodalVisible: visible,
+    });
+  }
+
 
   render() {
 
@@ -44,8 +57,67 @@ class MyShowsScreen extends React.Component {
           seasons={ this.props.watching[i].seasons }
           episodes={ this.props.watching[i].episodes }
           status={ this.props.watching[i].status }
+          setNewModalVisible = {this.setNewModalVisible}
         />
-      );  
+      );
+
+//       myshows.push(
+//         <Modal
+//           // key={i}
+//           animationType="slide"
+//           transparent={true}
+//           visible={this.state.newmodalVisible}
+//           onRequestClose={() => {
+//             console.log('fermeture de modale');
+//           }}
+//         >
+//
+//            <View style={{
+//                    marginTop: 100,
+//                    marginLeft: 10,
+//                    marginRight: 10,
+//                    paddingTop: 20,
+//                    paddingBottom: 20,
+//                    alignItems: 'center',
+//                    backgroundColor: 'white',
+//                    height: 'auto',
+//                    borderRadius: 20
+//                  }}>
+//
+//                  <Badge containerStyle={{ backgroundColor: '#fa983a'}}>
+//                    <Text style={{fontSize: 35, color: 'white', textAlign: 'center'}}>
+//                      My TV Show flow
+//                    </Text>
+//                  </Badge>
+//
+//                  <Divider style={{ height: 80, backgroundColor: 'white' }} />
+//
+//                    <View style={{marginBottom: 60}}>
+//                      <Button
+//                        icon={
+//                          <Icon
+//                            name='bars'
+//                            size={29}
+//                            color='black'
+//                          />
+//                        }
+//                        onPress={() => {this.setNewModalVisible(!this.state.newmodalVisible);}}
+//                        title="Close"
+//                        color="#fa983a"
+//                        buttonStyle={{
+//                          borderRadius: 100,
+//                          padding: 5,
+//                          width: 120,
+//                          height: 45,
+//                          margin: 10,
+//                        }}
+//                      />
+//                    </View>
+//
+//             </View>
+//
+//         </Modal>
+// );
     };
     };
 
