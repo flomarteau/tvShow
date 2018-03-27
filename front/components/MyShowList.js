@@ -24,6 +24,30 @@ class MyShowList extends React.Component {
     });
   }
 
+  switchStatusShow() {
+    var ctx = this;
+    fetch('http://10.2.1.60:3000/updateshowstatus', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: 'status=' + req.body.status
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(status) {
+      ctx.setState({statusShowSelected: status})
+    })
+    .catch(function(error) {
+      console.log(('Request failed', error));
+    })
+  }
+
+  deleteShow() {
+    fetch('http://10.2.1.60/3000/deleteshow', {
+      method: 'DELETE'
+    });
+  }
+
   render() {
     var showImg = { uri: this.props.poster };
     var switchButton;

@@ -34,6 +34,20 @@ class MyShowsScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    var ctx = this;
+    fetch('http://10.2.1.60:3000/myshows')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        ctx.setState({myshows: data})
+      })
+      .catch(function(error) {
+        console.log(('Request failed', error));
+      })
+  }
+
   setNewModalVisible(visible) {
     this.setState({
       newmodalVisible: visible,

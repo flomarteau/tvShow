@@ -145,7 +145,7 @@ router.put('/updateshowstatus', function(req, res, next) {
   );
 });
 
-//Route permettaant le changement d'avancement dans la série
+//Route permettant le changement d'avancement dans la série
 router.put('/updateshowprogress', function(req, res, next) {
   ShowModel.update(
     { userId: req.query.userId } && { _id: req.query._id } && { status: "watching" },
@@ -154,6 +154,18 @@ router.put('/updateshowprogress', function(req, res, next) {
       if(error) throw error;
       res.json(shows);
     }
+  );
+});
+
+//Route permettant la suppression d'une série dans la liste
+router.delete('/deleteshow', function(req, res, next) {
+  ShowModel.find({ userId: req.query.userId },
+    ShowModel.remove({ _id: req.query._id },
+      function(error, result) {
+        if(error) throw error;
+        res.json({ result: "the show has been deleted"});
+      }
+    )
   );
 });
 

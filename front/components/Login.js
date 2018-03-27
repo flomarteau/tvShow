@@ -19,7 +19,7 @@ constructor(){
 submitSignup(values){
   console.log('1 je suis dans le fetch du signup')
   const ctx = this;
-  fetch('http://10.2.1.63:3000/signup', {
+  fetch('http://10.2.1.60:3000/signup', {
     method: 'post',
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -40,7 +40,7 @@ submitSignup(values){
 //Fetch Get du SignInForm
 submitSignin(values){
   const ctx = this;
-  fetch('http://10.2.1.63:3000/signin?email=' + values.email + '&password=' + values.password, {
+  fetch('http://10.2.1.60:3000/signin?email=' + values.email + '&password=' + values.password, {
     method: 'get',
     headers: {"Content-Type": "application/json"},
   })
@@ -49,9 +49,11 @@ submitSignin(values){
     this.props.submitSignin() // permet de se diriger vers le mapDispatchToProps
     console.log("la réponse est ", response);
   })
+  .catch(error => console.log(error));
 }
 
   render() {
+
     return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Signupform onSubmit={this.submitSignup} />
@@ -69,7 +71,7 @@ function mapDispatchToProps(dispatch) {
     },
     submitSignup: function() {
         dispatch( {type: 'signup'} );
-    }
+    },
   }
 }
 
