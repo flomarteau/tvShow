@@ -82,9 +82,15 @@ router.get('/signin', function(req, res, next) {
   },
     function (err, users) {
       if(users.length >0 ) {
-        res.json({ result: "user found", firstName: users[0].firstName, lastName:users[0].lastName, email:users[0].email, password:users[0].password });
-      } else {
-        res.json({ result: "the user doesn't exist" });
+        res.json({
+          result: "user found",
+          firstName: users[0].firstName,
+          lastName:users[0].lastName,
+          email:users[0].email,
+          password:users[0].password,
+          _id:users[0]._id});
+      } else if(err) {
+        throw err;
       }
     }
  )
