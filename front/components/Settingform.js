@@ -14,6 +14,8 @@ class Settingform extends React.Component {
               name="email"
               component={textSetting}
               fieldName="Email"
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
             <Divider style={{ height: 40, backgroundColor: 'white' }} />
             <Field
@@ -30,6 +32,8 @@ class Settingform extends React.Component {
               name="password"
               component={textSetting}
               fieldName="password"
+              autoCapitalize="none"
+              secureTextEntry={true}
             />
             <Divider style={{ height: 20, backgroundColor: 'white' }} />
             <Button

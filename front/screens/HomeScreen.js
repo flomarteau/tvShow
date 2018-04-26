@@ -58,13 +58,13 @@ class HomeScreen extends React.Component {
   }
 
   addCurrentShow(title) {
-    console.log('le bouton addCurrentShow fonctionne', title);
+    console.log('le bouton addCurrentShow fonctionne', title);    
   }
 
   componentDidMount() {
     var ctx = this;
     // fetch data from back route
-    fetch('http://10.2.1.63:3000/shows')
+    fetch('http://10.2.1.60:3000/shows')
       .then(function(response) {
         // console.log(response);
         return response.json();
@@ -270,19 +270,6 @@ function mapDispatchToProps(dispatch) {
   return {
     addCurrentShow: function(title, poster, seasons, episodes, status) {
       console.log("test addCurrentShow");
-
-      // fetch('https://jsonplaceholder.typicode.com/users', {
-      //   method: 'POST',
-      //   headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      //   body: 'name=john&username=doe&email=john@gmail.com'
-      // }).then(function(response) {
-      //     return response.json();
-      // })
-      // .then(function(data) {
-      //     console.log(data);
-      // }).catch(function(error) {
-      //     console.log('Request failed', error)
-      // });
 
       dispatch({
         type: 'watching',

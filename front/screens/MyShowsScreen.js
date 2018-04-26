@@ -31,7 +31,22 @@ class MyShowsScreen extends React.Component {
       myshows: [],
       status: 'watching',
       newmodalVisible: false,
+      userId: null
     }
+  }
+
+  componentDidMount() {
+    var ctx = this;
+    fetch('http://10.2.1.60:3000/myshows')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        ctx.setState({myshows: data})
+      })
+      .catch(function(error) {
+        console.log(('Request failed', error));
+      })
   }
 
   setNewModalVisible(visible) {
@@ -142,7 +157,11 @@ class MyShowsScreen extends React.Component {
         </View>
         { myshows }
         <View style ={{justifyContent: 'center', alignItems: 'center' }}>
-          <Overlay isVisible={this.props.visible} height="auto" overlayStyle={{justifyContent: 'center', alignItems: 'center', marginBottom: 100}}>
+          <Overlay
+            isVisible={this.props.visible}
+            height="auto"
+            overlayStyle={{justifyContent: 'center', alignItems: 'center', marginBottom: 100}}
+          >
             <Login />
           </Overlay>
         </View>
@@ -152,10 +171,11 @@ class MyShowsScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  //console.log('test', state);
+  // console.log('test mapStateToProps MyShowsScreen', state);
   return {
-    visible: state.loginAction.login,
-    watching: state.watching
+    visible: !state.loginAction.login,
+    watching: state.watching,
+    userId: state.user,
   }
 }
 

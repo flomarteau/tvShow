@@ -13,11 +13,15 @@ class Signinform extends React.Component {
           name="email"
           component={textAccount}
           fieldName="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <Field
           name="password"
           component={textAccount}
           fieldName="password"
+          secureTextEntry={true}
+          autoCapitalize="none"
         />
         <Button
           onPress={this.props.handleSubmit}

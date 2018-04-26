@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Input } from 'react-native-elements';
 
 function textSetting(props) {
-  const { input, fieldName } = props;
+  const { input, fieldName, keyboardType, secureTextEntry, autoCapitalize } = props;
   return (
     <View>
       <Input
@@ -11,6 +11,9 @@ function textSetting(props) {
         onChangeText={input.onChange}
         value={input.value}
         placeholder={fieldName}
+        keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry}
+        autoCapitalize={autoCapitalize}
       />
     </View>
   );

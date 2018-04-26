@@ -9,6 +9,7 @@ import {combineReducers, createStore}  from 'redux';
 
 import loginAction from './reducer/loginAction.reducer';
 import watching from './reducer/watching.reducer';
+import user from './reducer/user.reducer';
 
 import { reducer as formReducer } from 'redux-form';
 
@@ -16,6 +17,7 @@ var allReducers= combineReducers({
   form: formReducer,
   loginAction,
   watching,
+  user,
  });
 
 const store = createStore(allReducers);
@@ -37,12 +39,12 @@ export default class App extends React.Component {
     } else {
       return (
         <Provider store={store}>
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
-        </View>
-      </Provider>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+            <RootNavigation />
+          </View>
+        </Provider>
       );
     }
   }
