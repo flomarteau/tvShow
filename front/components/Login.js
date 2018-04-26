@@ -41,9 +41,9 @@ class Login extends React.Component {
     console.log('1 je suis dans le fetch du signin')
     const ctx = this;
     fetch('http://10.2.1.60:3000/signin?email=' + values.email + '&password=' + values.password)
-    // .then(response => {
-    //   return response.json();
-    // })
+    .then(response => {
+      return response.json();
+    })
     .then(data => {
       // permet de se diriger vers le mapDispatchToProps
       ctx.props.onSubmitSignin(values.email, values.password, data.firstName, data.lastName, data._id);

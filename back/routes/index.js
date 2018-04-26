@@ -64,7 +64,8 @@ router.post('/signup', function(req, res, next) {
         lastName: req.body.lastName,
         firstName: req.body.firstName,
         email: req.body.email,
-        password: req.body.password});
+        password: req.body.password
+      });
       newUser.save(function(error, user) {
         res.json({ result: "the user has been signed up"});
       });
@@ -88,7 +89,8 @@ router.get('/signin', function(req, res, next) {
           lastName:users[0].lastName,
           email:users[0].email,
           password:users[0].password,
-          _id:users[0]._id});
+          _id:users[0]._id
+        });
       } else if(err) {
         throw err;
       }
@@ -134,7 +136,7 @@ router.post('/addshows', function(req, res, next) {
 //Route permettant la récupération des shows par rapport au userId
 router.get('/myshows', function(req, res, next) {
   //On affiche les shows correspondant à l'userId en session
-  ShowModel.find({ userId: req.query.userId },(error, shows) => {
+  ShowModel.find({ userId: req.query._id },(error, shows) => {
     res.json(shows);
   })
 });
