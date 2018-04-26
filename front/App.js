@@ -4,6 +4,24 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 
+import {Provider} from 'react-redux';
+import {combineReducers, createStore}  from 'redux';
+
+import loginAction from './reducer/loginAction.reducer';
+import watching from './reducer/watching.reducer';
+import user from './reducer/user.reducer';
+
+import { reducer as formReducer } from 'redux-form';
+
+var allReducers= combineReducers({
+  form: formReducer,
+  loginAction,
+  watching,
+  user,
+ });
+
+const store = createStore(allReducers);
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -20,17 +38,19 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
-        </View>
+        <Provider store={store}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+            <RootNavigation />
+          </View>
+        </Provider>
       );
     }
   }
 
   _loadResourcesAsync = async () => {
-    return Promise.all([
+return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/robot-prod.png'),
